@@ -6,4 +6,97 @@
 #+END_SRC
 
 #+results:
+* Algebra
+All the necessary dependency
+#+BEGIN_SRC ipython :session
+  import numpy as np
+  import theano.tensor as T
+  from theano import function
+#+END_SRC
+
+#+results:
+basic test
+#+BEGIN_SRC ipython :session
+  x = T.dscalar('x')
+  y = T.dscalar('y')
+  z = x + y
+  f = function([x,y],z)
+#+END_SRC
+
+#+results:
+#+BEGIN_SRC ipython :session
+  f(2,3)
+#+END_SRC
+#+results:
+: array(5.0)
+
+#+BEGIN_SRC ipython :session 
+  np.allclose(f(16.3,12.1),28.4)
+#+END_SRC
+
+#+results:
+: True
+** Add matrix
+Define the operator
+#+BEGIN_SRC ipython :session
+  x = T.dmatrix('x')
+  y = T.dmatrix('y')
+  z = x+y
+  f = function([x,y],z)
+#+END_SRC
+
+#+results:
+test the operator
+#+BEGIN_SRC ipython :session
+  f([[1,2],[3,4]],[[10,20],[30,40]])
+#+END_SRC
+
+#+results:
+: array([[ 11.,  22.],
+:        [ 33.,  44.]])
+** use numpy array as imput
+#+BEGIN_SRC ipython :session
+  f(numpy.array([[1,2],[3,4]]),numpy.array([[10,20],[30,40]]))
+#+END_SRC
+
+#+results:
+: array([[ 11.,  22.],
+:        [ 33.,  44.]])
+** Exercise
+Write a^2 + b^2 + 2ab
+#+BEGIN_SRC ipython :session
+  a = T.dvector('a')
+  b = T.dvector('b')
+  c = np.power(a,2) + np.power(b,2) + a*b*2
+  f = theano.function([a,b],c)
+#+END_SRC
+
+#+results:
+test results
+#+BEGIN_SRC ipython :session
+  f(np.array([1.0,2.0]),np.array([2.0,3.0]))
+#+END_SRC
+
+#+results:
+: array([  9.,  25.])
+
+* Some useful tools
+** pretty printing
+Use the pp library to print the beautiful computation format
+#+BEGIN_SRC ipython :session :export both
+  from theano import pp
+  print(pp(z))
+#+END_SRC
+
+#+results:
+
+
+
+* Note
+** What happens
+- [function] f will be first compile into c
+** eval function can be used for test or short cut 
+
+
+
 
