@@ -1,0 +1,9 @@
+#+TITLE: Follow the tutorial for the theano library
+#+AUTHOR: Cha Chen
+* Import the library
+#+BEGIN_SRC ipython :session
+  from theano import *
+#+END_SRC
+
+#+results:
+
